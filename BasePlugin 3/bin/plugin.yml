@@ -1,0 +1,5 @@
+main: Phecda.BasePlugin.ApiPlugin
+name: BasePluginApi
+version: 1.1 (rewrite 3)
+author: Phecda
+description: BasePlugin API
