@@ -67,34 +67,12 @@ public abstract class PluginCommand<T extends JavaPlugin> extends Command implem
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Queue<String> queue = new Queue<String>();
-		for (String s : args)
-			queue.push(s);
-		return onCommand(sender, cmd, label, queue);
-	}
 
-	public abstract boolean onCommand(CommandSender sender, Command cmd, String label, Queue<String> args);
-
-	@Override
-	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		try {
-			if (commandExecutor != null) {
-				
-				sender.sendMessage("Checking Permission: " + this.getPermission());
-				sender.sendMessage("Permission check result: " + sender.hasPermission(this.getPermission()));
-				
-				if (!sender.hasPermission(this.getPermission())) {
-					sender.sendMessage(this.getPermissionMessage());
-					return false;
-				}
-
-				if (!commandExecutor.onCommand(sender, this, commandLabel, args)) {
-					sender.sendMessage(this.getPermissionMessage());
-					return false;
-				} else {
-					return true;
-				}
-			}
+			Queue<String> queue = new Queue<String>();
+			for (String s : args)
+				queue.push(s);
+			return onCommand(sender, cmd, label, queue);
 		} catch (Exception ex) {
 
 			// Stacktrace in mc.
@@ -105,6 +83,30 @@ public abstract class PluginCommand<T extends JavaPlugin> extends Command implem
 				sender.sendMessage(ChatColor.RED + ste.toString());
 			}
 			sender.sendMessage(ChatColor.DARK_RED + "============== END ==============");
+		}
+		return false;
+	}
+
+	public abstract boolean onCommand(CommandSender sender, Command cmd, String label, Queue<String> args) throws Exception;
+
+	@Override
+	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+		if (commandExecutor != null) {
+			
+			sender.sendMessage("Checking Permission: " + this.getPermission());
+			sender.sendMessage("Permission check result: " + sender.hasPermission(this.getPermission()));
+			
+			if (!sender.hasPermission(this.getPermission())) {
+				sender.sendMessage(this.getPermissionMessage());
+				return false;
+			}
+
+			if (!commandExecutor.onCommand(sender, this, commandLabel, args)) {
+				sender.sendMessage(this.getPermissionMessage());
+				return false;
+			} else {
+				return true;
+			}
 		}
 		return false;
 	}
