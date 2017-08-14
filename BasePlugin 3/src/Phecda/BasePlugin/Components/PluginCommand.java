@@ -93,8 +93,8 @@ public abstract class PluginCommand<T extends JavaPlugin> extends Command implem
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if (commandExecutor != null) {
 			
-			sender.sendMessage("Checking Permission: " + this.getPermission());
-			sender.sendMessage("Permission check result: " + sender.hasPermission(this.getPermission()));
+//			sender.sendMessage("Checking Permission: " + this.getPermission());
+//			sender.sendMessage("Permission check result: " + sender.hasPermission(this.getPermission()));
 			
 			if (!sender.hasPermission(this.getPermission())) {
 				sender.sendMessage(this.getPermissionMessage());
