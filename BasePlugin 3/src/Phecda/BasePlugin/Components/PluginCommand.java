@@ -8,13 +8,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import Phecda.BasePlugin.Components.HelpTopics.CommandHelp;
 import Phecda.Utility.Queue;
 
-public abstract class PluginCommand<T extends JavaPlugin> extends Command implements CommandExecutor {
+public abstract class PluginCommand<T extends JavaPlugin> extends Command implements CommandExecutor, TabCompleter {
 
 	public abstract String getCommandName();
 
@@ -116,5 +117,10 @@ public abstract class PluginCommand<T extends JavaPlugin> extends Command implem
 		for (Player p : Bukkit.getOnlinePlayers()) if (p.getName().equalsIgnoreCase(name)) return p;
 		return null;
 	}
-	
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String asd, String[] arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
